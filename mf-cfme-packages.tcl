@@ -5,7 +5,7 @@ set pulp "http://pulp-read.dist.prod.ext.phx2.redhat.com"
 set product "cloudforms_managementengine"
 
 set post source/SRPMS	;# source rpm listing
-set post os				;# binary rpm listing
+#set post os				;# binary rpm listing
 
 set REPOS {
     5.11 {
