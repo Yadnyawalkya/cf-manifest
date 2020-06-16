@@ -19,20 +19,20 @@ cat cfme-5.11.mf >> cfme-manifest.mf
 cat cfme-5.11-rubygems-$timestamp.mf >> cfme-manifest.mf
 
 # merger
-cd $dirpath;
-git add .
-git stash
-git checkout master
-git reset HEAD~5
-git add .
-git stash
-git pull origin master
+# cd $dirpath;
+# git add .
+# git stash
+# git checkout master
+# git reset HEAD~5
+# git add .
+# git stash
+# git pull origin master
 
-sed -i '\|cloudforms_managementengine|d' $filepath
-git add $filepath
-git commit -m "Removed packages from CloudForms manifest $timestamp"
+# sed -i '\|cloudforms_managementengine|d' $filepath
+# git add $filepath
+# git commit -m "Removed packages from CloudForms manifest $timestamp"
 
 cat "$pwd/cfme-manifest.mf" >> $filepath
 
-git add $filepath
-git commit -m "Updated packages from CloudForms manifest $timestamp"
+# git add $filepath
+# git commit -m "Updated packages from CloudForms manifest $timestamp"
