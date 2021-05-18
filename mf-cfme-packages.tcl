@@ -1,6 +1,6 @@
 #!/usr/bin/env tclsh
 #
-set pulp "http://pulp-read.dist.prod.ext.phx2.redhat.com"
+set pulp "http://rhsm-pulp.corp.redhat.com"
 
 set product "cloudforms_managementengine"
 
