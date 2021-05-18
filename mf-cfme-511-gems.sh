@@ -9,7 +9,7 @@ set -uex
 all_ver=(5.11)
 
 for cfme_ver in ${all_ver[*]}; do
-	repo="http://pulp-read.dist.prod.ext.phx2.redhat.com/content/dist/layered/rhel8/x86_64/cfme/5.11/os/"
+	repo="http://rhsm-pulp.corp.redhat.com/content/dist/layered/rhel8/x86_64/cfme/5.11/os/"
 	cpe_prefix="cloudforms_managementengine:$cfme_ver"
 
 	for name in cfme-amazon-smartstate; do
