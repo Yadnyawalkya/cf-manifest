@@ -9,7 +9,7 @@ set -uex
 all_ver=(5.10)
 
 for cfme_ver in ${all_ver[*]}; do
-	repo="http://pulp-read.dist.prod.ext.phx2.redhat.com/content/dist/cf-me/server/$cfme_ver/x86_64/os"
+	repo="http://rhsm-pulp.corp.redhat.com/content/dist/cf-me/server/$cfme_ver/x86_64/os"
 	cpe_prefix="cloudforms_managementengine:$cfme_ver"
 
 	for name in cfme-gemset cfme-amazon-smartstate dbus-api-service httpd-configmap-generator; do
