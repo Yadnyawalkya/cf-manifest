@@ -6,21 +6,18 @@
 
 set -uex
 
-all_ver=(5.11)
+cfme_ver="5.11"
+brew_tag="cfme-$cfme_ver-rhel-7"
+repo="http://rhsm-pulp.corp.redhat.com/content/dist/layered/rhel8/x86_64/cfme/$cfme_ver/os/"
+cpe_prefix="cloudforms_managementengine:$cfme_ver"
 
-for cfme_ver in ${all_ver[*]}; do
-	repo="http://rhsm-pulp.corp.redhat.com/content/dist/layered/rhel8/x86_64/cfme/5.11/os/"
-	cpe_prefix="cloudforms_managementengine:$cfme_ver"
-
-	for name in cfme-amazon-smartstate; do
-		pkg="$(dnf repoquery --repofrompath=1,$repo --repoid=1 --latest-limit=1 $name)"
-		pkg=${pkg%.x86_64}
-		pkg=${pkg%.noarch}
-		# echo $pkg
-		dnf repoquery --repofrompath=1,$repo --repoid=1 --latest-limit=1 -l $name \
-			| grep "gems/" | awk -F / '{ print $7; }' | uniq \
-			| while read gem; do
-				echo "$cpe_prefix/$pkg:rubygem:$gem"
-		done
-	done | tee "cfme-$cfme_ver-rubygems-$1.mf"
-done
+for name in cfme-gemset cfme-amazon-smartstate; do
+	pkg="$(dnf repoquery --repofrompath=1,$repo --repoid=1 --latest-limit=1 $name)"
+	pkg=${pkg%.x86_64}
+	pkg=${pkg%.noarch}
+	dnf repoquery --repofrompath=1,$repo --repoid=1 --latest-limit=1 -l $name \
+		| sed -ne 's@/opt/\(rh/\)\?[^/]\+/\(gems\|vendor/bundle/ruby/[^/]\+/gems\)/\([^/]\+\)$@\3@p' \
+		| while read gem; do
+			echo "$cpe_prefix/$pkg:rubygem:$gem"
+	done
+done | tee "$brew_tag.rubygems.mf"
